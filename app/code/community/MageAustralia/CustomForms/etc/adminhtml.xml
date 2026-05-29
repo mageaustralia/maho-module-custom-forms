@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Maho
+ *
+ * @package    MageAustralia_CustomForms
+ * @copyright  Copyright (c) 2026 Mage Australia
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <menu>
+        <cms>
+            <children>
+                <customforms translate="title" module="customforms">
+                    <title>Custom Forms</title>
+                    <sort_order>80</sort_order>
+                    <children>
+                        <forms translate="title" module="customforms">
+                            <title>Manage Forms</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/customforms_form</action>
+                        </forms>
+                        <submissions translate="title" module="customforms">
+                            <title>Submitted Data</title>
+                            <sort_order>20</sort_order>
+                            <action>adminhtml/customforms_submission</action>
+                        </submissions>
+                    </children>
+                </customforms>
+            </children>
+        </cms>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <cms>
+                        <children>
+                            <customforms translate="title" module="customforms">
+                                <title>Custom Forms</title>
+                                <sort_order>80</sort_order>
+                                <children>
+                                    <forms translate="title" module="customforms">
+                                        <title>Manage Forms</title>
+                                    </forms>
+                                    <submissions translate="title" module="customforms">
+                                        <title>Submitted Data</title>
+                                    </submissions>
+                                </children>
+                            </customforms>
+                        </children>
+                    </cms>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <customforms translate="title" module="customforms">
+                                        <title>Custom Forms</title>
+                                    </customforms>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

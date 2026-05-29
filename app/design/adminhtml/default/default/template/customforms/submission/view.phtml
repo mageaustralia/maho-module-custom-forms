@@ -1,0 +1,56 @@
+<?php
+/**
+ * Maho
+ *
+ * @package    MageAustralia_CustomForms
+ * @copyright  Copyright (c) 2026 Mage Australia
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @var MageAustralia_CustomForms_Block_Adminhtml_Submission_View $this
+ */
+$submission = $this->getSubmission();
+?>
+<?php if (!$submission): ?>
+    <p><?php echo $this->__('Submission not found.') ?></p>
+<?php else: ?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="width:50%;"><h3 class="icon-head head-cms-page"><?php echo $this->__('Submission #%s', $submission->getId()) ?></h3></td>
+            <td class="form-buttons">
+                <?php echo $this->getButtonHtml($this->__('Back'), "setLocation('" . $this->getBackUrl() . "')", 'back') ?>
+                <?php echo $this->getButtonHtml($this->__('Delete'), "deleteConfirm('" . $this->__('Delete this submission?') . "', '" . $this->getDeleteUrl() . "')", 'delete') ?>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="entry-edit">
+    <div class="entry-edit-head"><h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Details') ?></h4></div>
+    <fieldset>
+        <table class="form-list" cellspacing="0">
+            <tr><td class="label"><?php echo $this->__('Submitted') ?></td><td class="value"><strong><?php echo $this->escapeHtml($submission->getCreatedAt()) ?></strong></td></tr>
+            <tr><td class="label"><?php echo $this->__('IP') ?></td><td class="value"><?php echo $this->escapeHtml($submission->getIp() ?: '-') ?></td></tr>
+            <tr><td class="label"><?php echo $this->__('Customer Id') ?></td><td class="value"><?php echo $submission->getCustomerId() ? (int) $submission->getCustomerId() : $this->__('Guest') ?></td></tr>
+            <tr><td class="label"><?php echo $this->__('Status') ?></td><td class="value"><?php echo $this->escapeHtml($submission->getStatus()) ?></td></tr>
+        </table>
+    </fieldset>
+</div>
+
+<div class="entry-edit">
+    <div class="entry-edit-head"><h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Submitted Values') ?></h4></div>
+    <fieldset>
+        <table class="form-list" cellspacing="0">
+            <?php foreach ($this->getValues() as $key => $value): ?>
+                <tr>
+                    <td class="label"><?php echo $this->escapeHtml($key) ?></td>
+                    <td class="value"><?php echo nl2br($this->escapeHtml($value)) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            <?php if (!$this->getValues()): ?>
+                <tr><td colspan="2"><?php echo $this->__('No values recorded.') ?></td></tr>
+            <?php endif; ?>
+        </table>
+    </fieldset>
+</div>
+<?php endif; ?>

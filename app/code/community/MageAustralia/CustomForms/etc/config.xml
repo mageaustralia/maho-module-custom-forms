@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Maho
+ *
+ * @package    MageAustralia_CustomForms
+ * @copyright  Copyright (c) 2026 Mage Australia
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <MageAustralia_CustomForms>
+            <version>1.0.0</version>
+        </MageAustralia_CustomForms>
+    </modules>
+
+    <global>
+        <helpers>
+            <customforms>
+                <class>MageAustralia_CustomForms_Helper</class>
+            </customforms>
+        </helpers>
+        <models>
+            <customforms>
+                <class>MageAustralia_CustomForms_Model</class>
+                <resourceModel>customforms_resource</resourceModel>
+            </customforms>
+            <customforms_resource>
+                <class>MageAustralia_CustomForms_Model_Resource</class>
+                <entities>
+                    <form>
+                        <table>customform</table>
+                    </form>
+                    <submission>
+                        <table>customform_submission</table>
+                    </submission>
+                </entities>
+            </customforms_resource>
+        </models>
+        <blocks>
+            <customforms>
+                <class>MageAustralia_CustomForms_Block</class>
+            </customforms>
+        </blocks>
+        <resources>
+            <customforms_setup>
+                <setup>
+                    <module>MageAustralia_CustomForms</module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+            </customforms_setup>
+        </resources>
+        <template>
+            <email>
+                <customforms_submission_notify>
+                    <label>Custom Forms - submission notification</label>
+                    <file>customforms/submission_notify.html</file>
+                    <type>html</type>
+                </customforms_submission_notify>
+            </email>
+        </template>
+    </global>
+
+    <frontend>
+        <translate>
+            <modules>
+                <MageAustralia_CustomForms>
+                    <files>
+                        <default>MageAustralia_CustomForms.csv</default>
+                    </files>
+                </MageAustralia_CustomForms>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <customforms>
+                    <file>mageaustralia_customforms.xml</file>
+                </customforms>
+            </updates>
+        </layout>
+    </frontend>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <MageAustralia_CustomForms>
+                    <files>
+                        <default>MageAustralia_CustomForms.csv</default>
+                    </files>
+                </MageAustralia_CustomForms>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <customforms>
+                    <file>mageaustralia_customforms.xml</file>
+                </customforms>
+            </updates>
+        </layout>
+    </adminhtml>
+
+    <default>
+        <customforms>
+            <general>
+                <enabled>1</enabled>
+            </general>
+            <antispam>
+                <captcha>0</captcha>
+                <honeypot>1</honeypot>
+                <min_seconds>3</min_seconds>
+                <rate_limit_per_hour>20</rate_limit_per_hour>
+            </antispam>
+            <api>
+                <!-- Headless API is opt-in: off until a storefront/embed needs it. -->
+                <enabled>0</enabled>
+            </api>
+        </customforms>
+    </default>
+</config>

@@ -1,0 +1,29 @@
+/**
+ * Maho
+ *
+ * @package    MageAustralia_CustomForms
+ * @copyright  Copyright (c) 2026 Mage Australia
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+.customforms__grid { display:flex; flex-wrap:wrap; gap:16px; margin:0 0 16px; }
+.customforms__field { display:flex; flex-direction:column; gap:5px; flex:1 1 100%; }
+.customforms__field--half { flex:1 1 calc(50% - 8px); }
+.customforms__field--third { flex:1 1 calc(33.333% - 11px); }
+.customforms__field label { font-weight:600; }
+.customforms__field input[type=text],
+.customforms__field input[type=email],
+.customforms__field input[type=tel],
+.customforms__field input[type=number],
+.customforms__field textarea,
+.customforms__field select { width:100%; box-sizing:border-box; padding:8px 10px; }
+.customforms__field textarea { min-height:96px; }
+/* Override themes that force a short fixed height on <select>, which clips the
+   option text once our vertical padding is added. */
+.customforms__field select { height:auto; line-height:1.4; }
+.customforms__choice { font-weight:400; display:inline-flex; align-items:center; gap:6px; margin-right:14px; }
+.customforms__req { color:#c00; margin-left:2px; }
+.customforms__field--error input, .customforms__field--error textarea, .customforms__field--error select { border-color:#c00; }
+.customforms__field-error { color:#c00; font-size:.85em; }
+.customforms__success { padding:12px 14px; background:#e7f6e7; border:1px solid #b7dfb7; border-radius:4px; margin-bottom:14px; }
+.customforms__error { padding:12px 14px; background:#fdecea; border:1px solid #f5c6cb; border-radius:4px; margin-bottom:14px; }
+.customforms__captcha { margin:0 0 16px; }

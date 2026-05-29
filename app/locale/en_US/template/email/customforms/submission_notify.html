@@ -1,0 +1,20 @@
+<!--@subject New submission: {{var form_name}} @-->
+<!--@vars
+{"var form_name":"Form name","var submission_id":"Submission id","var submitted_at":"Submitted at","var ip":"Submitter IP","var items_html":"Submitted values (rendered)"}
+@-->
+
+<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#333;max-width:640px;margin:0 auto;">
+    <h2 style="font-size:18px;margin:0 0 12px;">New submission - {{var form_name}}</h2>
+    <p style="color:#777;margin:0 0 16px;">
+        Submission #{{var submission_id}} &middot; {{var submitted_at}} &middot; IP {{var ip}}
+    </p>
+    <table style="border-collapse:collapse;width:100%;">
+        <tbody>
+            {{var items_html}}
+        </tbody>
+    </table>
+    <p style="font-size:12px;color:#999;margin-top:20px;">
+        Sent by the Custom Forms module. Manage submissions under
+        CMS &gt; Custom Forms &gt; Submitted Data.
+    </p>
+</div>

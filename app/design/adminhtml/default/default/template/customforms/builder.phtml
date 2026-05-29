@@ -1,0 +1,48 @@
+<?php
+/**
+ * Maho
+ *
+ * @package    MageAustralia_CustomForms
+ * @copyright  Copyright (c) 2026 Mage Australia
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @var MageAustralia_CustomForms_Block_Adminhtml_Form_Builder $this
+ */
+?>
+<div id="cf-builder" class="cf-builder"
+     data-schema-field="schema"
+     data-field-types='<?php echo $this->escapeHtml($this->getFieldTypesJson()) ?>'>
+
+    <script type="application/json" id="cf-builder-schema"><?php echo $this->getSchemaJson() /* trusted: admin-saved JSON */ ?></script>
+
+    <div class="cf-builder__toolbar">
+        <label><?php echo $this->__('Add field:') ?></label>
+        <select id="cf-add-type"></select>
+        <button type="button" class="scalable add" id="cf-add-btn">
+            <span><?php echo $this->__('Add') ?></span>
+        </button>
+        <a href="#" id="cf-toggle-json" class="cf-builder__jsonlink"><?php echo $this->__('Show JSON') ?></a>
+    </div>
+
+    <div class="cf-builder__panes">
+        <div class="cf-canvas">
+            <ul id="cf-field-list" class="cf-field-list"></ul>
+            <p class="cf-builder__empty" id="cf-empty" style="display:none;">
+                <?php echo $this->__('No fields yet. Add one above to start building the form.') ?>
+            </p>
+        </div>
+        <aside id="cf-inspector" class="cf-inspector"></aside>
+    </div>
+
+    <pre id="cf-json-preview" class="cf-json-preview" style="display:none;"></pre>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+mahoOnReady(function () {
+    if (window.CustomFormsBuilder) {
+        window.CustomFormsBuilder.init(document.getElementById('cf-builder'));
+    }
+});
+//]]>
+</script>

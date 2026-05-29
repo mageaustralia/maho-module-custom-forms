@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Maho
+ *
+ * @package    MageAustralia_CustomForms
+ * @copyright  Copyright (c) 2026 Mage Australia
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<layout>
+    <adminhtml_customforms_form_index>
+        <reference name="content">
+            <block type="customforms/adminhtml_form" name="customforms_form"/>
+        </reference>
+    </adminhtml_customforms_form_index>
+
+    <adminhtml_customforms_form_grid>
+        <block type="customforms/adminhtml_form_grid" name="customforms_form_grid" output="toHtml"/>
+    </adminhtml_customforms_form_grid>
+
+    <adminhtml_customforms_form_edit>
+        <reference name="head">
+            <action method="addJs"><script>mageaustralia/customforms/builder.js</script></action>
+            <action method="addItem"><type>skin_css</type><name>mageaustralia/customforms/cf-builder.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="customforms/adminhtml_form_edit" name="customforms_form_edit"/>
+        </reference>
+        <reference name="left">
+            <block type="customforms/adminhtml_form_edit_tabs" name="customforms_form_edit_tabs">
+                <block type="customforms/adminhtml_form_edit_tab_general" name="customforms_form_edit_tab_general"/>
+                <block type="customforms/adminhtml_form_edit_tab_builder" name="customforms_form_edit_tab_builder"/>
+                <block type="customforms/adminhtml_form_edit_tab_settings" name="customforms_form_edit_tab_settings"/>
+                <block type="customforms/adminhtml_form_edit_tab_embedding" name="customforms_form_edit_tab_embedding"/>
+                <action method="addTab"><name>general</name><block>customforms_form_edit_tab_general</block></action>
+                <action method="addTab"><name>builder</name><block>customforms_form_edit_tab_builder</block></action>
+                <action method="addTab"><name>settings</name><block>customforms_form_edit_tab_settings</block></action>
+                <action method="addTab"><name>embedding</name><block>customforms_form_edit_tab_embedding</block></action>
+            </block>
+        </reference>
+    </adminhtml_customforms_form_edit>
+
+    <adminhtml_customforms_submission_index>
+        <reference name="content">
+            <block type="customforms/adminhtml_submission" name="customforms_submission"/>
+        </reference>
+    </adminhtml_customforms_submission_index>
+
+    <adminhtml_customforms_submission_grid>
+        <block type="customforms/adminhtml_submission_grid" name="customforms_submission_grid" output="toHtml"/>
+    </adminhtml_customforms_submission_grid>
+
+    <adminhtml_customforms_submission_view>
+        <reference name="content">
+            <block type="customforms/adminhtml_submission_view" name="customforms_submission_view"/>
+        </reference>
+    </adminhtml_customforms_submission_view>
+</layout>

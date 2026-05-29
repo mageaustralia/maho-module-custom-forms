@@ -1,0 +1,36 @@
+{
+    "name": "mageaustralia/maho-module-custom-forms",
+    "description": "Schema-first form builder for Maho 26.5+. Drag-drop admin builder, one JSON schema per form rendered identically server-side and headless, altcha captcha, stored submissions, and a customform_submission_created event for downstream flows (e.g. B2B trade-account registration).",
+    "type": "maho-module",
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "MageAustralia",
+            "email": "dev@mageaustralia.com.au"
+        }
+    ],
+    "keywords": [
+        "maho",
+        "openmage",
+        "magento",
+        "forms",
+        "form-builder",
+        "captcha",
+        "headless"
+    ],
+    "homepage": "https://github.com/mageaustralia/maho-module-custom-forms",
+    "require": {
+        "php": "^8.3",
+        "mahocommerce/maho": "^26.5"
+    },
+    "autoload": {
+        "psr-0": {
+            "MageAustralia_CustomForms": "app/code/community"
+        }
+    },
+    "extra": {
+        "maho-module": {
+            "module-xml": "app/etc/modules/MageAustralia_CustomForms.xml"
+        }
+    }
+}

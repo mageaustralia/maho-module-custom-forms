@@ -1,0 +1,151 @@
+<?php
+/**
+ * Maho
+ *
+ * @package    MageAustralia_CustomForms
+ * @copyright  Copyright (c) 2026 Mage Australia
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ *
+ * @var MageAustralia_CustomForms_Block_Form $this
+ */
+$form = $this->getForm();
+if (!$form):
+    return;
+endif;
+$result = $this->getResultData();
+$errors = (array) $result->getData('errors');
+$values = (array) $result->getData('values');
+?>
+<div class="customforms" id="customforms-<?php echo $this->escapeHtml($form->getCode()) ?>">
+    <?php if ($this->getFormTitle()): ?>
+        <h2 class="customforms__title"><?php echo $this->escapeHtml($this->getFormTitle()) ?></h2>
+    <?php endif; ?>
+
+    <?php if ($result->getData('success')): ?>
+        <div class="customforms__success"><?php echo $this->escapeHtml((string) $result->getData('message')) ?></div>
+    <?php else: ?>
+        <?php if ($result->getData('message')): ?>
+            <div class="customforms__error"><?php echo $this->escapeHtml((string) $result->getData('message')) ?></div>
+        <?php endif; ?>
+        <form class="customforms__form" method="post" action="<?php echo $this->escapeUrl($this->getActionUrl()) ?>" enctype="multipart/form-data">
+            <input type="hidden" name="form_code" value="<?php echo $this->escapeHtml($form->getCode()) ?>"/>
+            <input type="hidden" name="render_token" value="<?php echo $this->escapeHtml($this->getRenderToken()) ?>"/>
+            <?php if ($this->isHoneypotEnabled()): ?>
+                <div class="customforms__hp" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;">
+                    <label><?php echo $this->__('Leave this field empty') ?>
+                        <input type="text" name="<?php echo $this->escapeHtml($this->getHoneypotName()) ?>" tabindex="-1" autocomplete="off" value=""/>
+                    </label>
+                </div>
+            <?php endif; ?>
+
+            <div class="customforms__grid">
+                <?php foreach ($this->getFields() as $field): ?>
+                    <?php
+                    $type  = (string) ($field['type'] ?? 'text');
+                    $key   = (string) ($field['key'] ?? '');
+                    $label = (string) ($field['label'] ?? $key);
+                    $width = (string) ($field['width'] ?? 'full');
+                    if (!in_array($width, ['full', 'half', 'third'], true)) { $width = 'full'; }
+                    $req   = !empty($field['required']);
+                    // HTML5 progressive enhancement: instant browser feedback.
+                    // PHP (Helper::_validateFieldValue) remains the authoritative check.
+                    $validate = is_array($field['validate'] ?? null) ? $field['validate'] : [];
+                    $minLen   = isset($validate['minLength']) ? (int) $validate['minLength'] : null;
+                    $maxLen   = isset($validate['maxLength']) ? (int) $validate['maxLength'] : null;
+                    $pattern  = !empty($validate['pattern']) ? (string) $validate['pattern'] : '';
+                    $ph       = !empty($field['placeholder']) ? (string) $field['placeholder'] : '';
+                    $lenAttrs = ($minLen !== null ? ' minlength="' . $minLen . '"' : '')
+                              . ($maxLen !== null ? ' maxlength="' . $maxLen . '"' : '');
+                    // HTML5 pattern is ignored on type=number; harmless to omit there.
+                    $patAttr  = ($pattern !== '' && $type !== 'number') ? ' pattern="' . $this->escapeHtml($pattern) . '"' : '';
+                    $phAttr   = $ph !== '' ? ' placeholder="' . $this->escapeHtml($ph) . '"' : '';
+                    $val   = $values[$key] ?? '';
+                    $err   = $errors[$key] ?? '';
+                    $id    = 'cf-' . $this->escapeHtml($form->getCode()) . '-' . $this->escapeHtml($key);
+                    if ($type === 'heading'):
+                        ?><div class="customforms__field customforms__field--full"><h3><?php echo $this->escapeHtml($label) ?></h3></div><?php
+                        continue;
+                    endif;
+                    if ($type === 'html'):
+                        ?><div class="customforms__field customforms__field--full"><?php echo $this->getLayout() ? $label : '' /* admin-authored */ ?></div><?php
+                        continue;
+                    endif;
+                    ?>
+                    <div class="customforms__field customforms__field--<?php echo $width ?><?php echo $err ? ' customforms__field--error' : '' ?>">
+                        <label for="<?php echo $id ?>"><?php echo $this->escapeHtml($label) ?><?php echo $req ? ' <span class="customforms__req" aria-hidden="true">*</span>' : '' ?></label>
+                        <?php $name = 'field[' . $this->escapeHtml($key) . ']'; ?>
+                        <?php switch ($type):
+                            case 'textarea': ?>
+                                <textarea id="<?php echo $id ?>" name="<?php echo $name ?>"<?php echo $lenAttrs . $phAttr ?> <?php echo $req ? 'required' : '' ?>><?php echo $this->escapeHtml(is_array($val) ? '' : (string) $val) ?></textarea>
+                                <?php break;
+                            case 'select': ?>
+                                <select id="<?php echo $id ?>" name="<?php echo $name ?>" <?php echo $req ? 'required' : '' ?>>
+                                    <option value=""><?php echo $this->__('Please select') ?></option>
+                                    <?php foreach (($field['options'] ?? []) as $opt): ?>
+                                        <option value="<?php echo $this->escapeHtml((string) ($opt['value'] ?? '')) ?>" <?php echo ((string) $val === (string) ($opt['value'] ?? '')) ? 'selected' : '' ?>><?php echo $this->escapeHtml((string) ($opt['label'] ?? $opt['value'] ?? '')) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?php break;
+                            case 'multiselect': ?>
+                                <select id="<?php echo $id ?>" name="field[<?php echo $this->escapeHtml($key) ?>][]" multiple <?php echo $req ? 'required' : '' ?>>
+                                    <?php $sel = is_array($val) ? array_map('strval', $val) : []; ?>
+                                    <?php foreach (($field['options'] ?? []) as $opt): ?>
+                                        <option value="<?php echo $this->escapeHtml((string) ($opt['value'] ?? '')) ?>" <?php echo in_array((string) ($opt['value'] ?? ''), $sel, true) ? 'selected' : '' ?>><?php echo $this->escapeHtml((string) ($opt['label'] ?? $opt['value'] ?? '')) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?php break;
+                            case 'radio': ?>
+                                <?php foreach (($field['options'] ?? []) as $opt): ?>
+                                    <label class="customforms__choice"><input type="radio" name="<?php echo $name ?>" value="<?php echo $this->escapeHtml((string) ($opt['value'] ?? '')) ?>" <?php echo ((string) $val === (string) ($opt['value'] ?? '')) ? 'checked' : '' ?>/> <?php echo $this->escapeHtml((string) ($opt['label'] ?? $opt['value'] ?? '')) ?></label>
+                                <?php endforeach; ?>
+                                <?php break;
+                            case 'checkbox': ?>
+                                <?php $sel = is_array($val) ? array_map('strval', $val) : []; ?>
+                                <?php foreach (($field['options'] ?? []) as $opt): ?>
+                                    <label class="customforms__choice"><input type="checkbox" name="field[<?php echo $this->escapeHtml($key) ?>][]" value="<?php echo $this->escapeHtml((string) ($opt['value'] ?? '')) ?>" <?php echo in_array((string) ($opt['value'] ?? ''), $sel, true) ? 'checked' : '' ?>/> <?php echo $this->escapeHtml((string) ($opt['label'] ?? $opt['value'] ?? '')) ?></label>
+                                <?php endforeach; ?>
+                                <?php break;
+                            case 'file': ?>
+                                <input type="file" id="<?php echo $id ?>" name="<?php echo $name ?>" <?php echo $req ? 'required' : '' ?>/>
+                                <?php break;
+                            default:
+                                $inputType = in_array($type, ['email', 'number', 'phone'], true) ? ($type === 'phone' ? 'tel' : $type) : 'text';
+                                ?>
+                                <input type="<?php echo $inputType ?>" id="<?php echo $id ?>" name="<?php echo $name ?>"
+                                       value="<?php echo $this->escapeHtml(is_array($val) ? '' : (string) $val) ?>"
+                                       <?php echo $phAttr . $lenAttrs . $patAttr ?>
+                                       <?php echo $req ? 'required' : '' ?>/>
+                        <?php endswitch; ?>
+                        <?php if ($err): ?><span class="customforms__field-error"><?php echo $this->escapeHtml($err) ?></span><?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <?php if ($this->isCaptchaRequired()): ?>
+                <div class="customforms__captcha"><?php echo $this->getCaptchaHtml() ?></div>
+            <?php endif; ?>
+
+            <div class="customforms__actions">
+                <button type="submit" class="button customforms__submit"><span><?php echo $this->escapeHtml($this->getSubmitLabel()) ?></span></button>
+            </div>
+        </form>
+    <?php endif; ?>
+
+    <?php if ($result->getData('success') || $result->getData('message')): ?>
+        <script type="text/javascript">
+        //<![CDATA[
+        // Strip the one-time ?cfr= result token from the URL so a refresh or
+        // bookmark of this page shows the clean form, not the message again.
+        (function () {
+            try {
+                var u = new URL(window.location.href);
+                if (u.searchParams.has('cfr')) {
+                    u.searchParams.delete('cfr');
+                    window.history.replaceState(null, document.title, u.pathname + u.search + u.hash);
+                }
+            } catch (e) {}
+        })();
+        //]]>
+        </script>
+    <?php endif; ?>
+</div>

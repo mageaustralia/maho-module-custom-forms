@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Maho
+ *
+ * @package    MageAustralia_CustomForms
+ * @copyright  Copyright (c) 2026 Mage Australia
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<layout>
+    <default>
+        <reference name="head">
+            <action method="addItem"><type>skin_css</type><name>mageaustralia/customforms/form.css</name></action>
+        </reference>
+    </default>
+</layout>

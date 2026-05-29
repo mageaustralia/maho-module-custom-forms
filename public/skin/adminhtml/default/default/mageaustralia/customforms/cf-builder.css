@@ -1,0 +1,80 @@
+/**
+ * Maho
+ *
+ * @package    MageAustralia_CustomForms
+ * @copyright  Copyright (c) 2026 Mage Australia
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/* ---- toolbar ---- */
+.cf-builder__toolbar { display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+.cf-builder__toolbar label { font-weight:bold; }
+.cf-builder__jsonlink { margin-left:auto; }
+
+/* Builder tab: the UI is rendered inside a Maho form `note` field, which
+   traps it in a ~300px form-list value cell with a wide empty label column.
+   Collapse that table chain so the two-pane builder uses the full tab width. */
+#customforms_form_tabs_builder_content .form-list,
+#customforms_form_tabs_builder_content .form-list > tbody,
+#customforms_form_tabs_builder_content .form-list > tbody > tr { display:block; width:100%; }
+#customforms_form_tabs_builder_content .form-list td.label { display:none; }
+#customforms_form_tabs_builder_content .form-list td.value { display:block; width:100% !important; padding:0 !important; }
+
+/* ---- two-pane layout ---- */
+.cf-builder__panes { display:flex; align-items:flex-start; gap:18px; }
+.cf-canvas { flex:1 1 auto; min-width:0; background:#fbfbfc; border:1px solid #e2e2e5; border-radius:8px; padding:16px; }
+.cf-inspector { flex:0 0 320px; align-self:flex-start; position:sticky; top:12px; background:#fff; border:1px solid #d6d6d9; border-radius:8px; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+
+/* ---- canvas: live form preview ---- */
+.cf-field-list { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:4px 2%; }
+.cf-prev { position:relative; box-sizing:border-box; flex:0 0 100%; padding:12px 14px; border:1px solid transparent; border-radius:6px; cursor:pointer; }
+.cf-prev[data-width="half"]  { flex-basis:49%; }
+.cf-prev[data-width="third"] { flex-basis:32%; }
+.cf-prev:hover { background:#f1f4f9; }
+.cf-prev.is-selected { background:#eaf2ff; border-color:#9cc0ff; box-shadow:0 0 0 1px #9cc0ff inset; }
+.cf-prev__label { display:block; font-weight:600; color:#2a2a2a; margin-bottom:6px; font-size:13px; }
+.cf-prev__req { color:#d00; }
+.cf-prev__control { box-sizing:border-box; width:100%; min-height:34px; padding:8px 10px; border:1px solid #c4c4c4; border-radius:4px; background:#fff; color:#8a8a8a; font-size:13px; }
+.cf-prev__control--area { min-height:64px; }
+.cf-prev__control--select { display:flex; align-items:center; justify-content:space-between; color:#555; }
+.cf-prev__caret { color:#999; }
+.cf-prev__control--file { color:#777; }
+.cf-prev__choices { display:flex; flex-direction:column; gap:6px; }
+.cf-prev__choice { display:flex; align-items:center; gap:8px; color:#444; font-size:13px; }
+.cf-prev__box { width:15px; height:15px; border:1px solid #b5b5b5; background:#fff; display:inline-block; }
+.cf-prev__box--radio { border-radius:50%; }
+.cf-prev__box--check { border-radius:3px; }
+.cf-prev__heading { font-size:18px; font-weight:700; color:#222; padding:4px 0; border-bottom:1px solid #e2e2e5; }
+
+/* reorder/delete rail, shown on hover or when selected */
+.cf-prev__rail { position:absolute; top:8px; right:8px; display:none; gap:4px; }
+.cf-prev:hover .cf-prev__rail, .cf-prev.is-selected .cf-prev__rail { display:flex; }
+.cf-icon { display:flex; align-items:center; justify-content:center; width:26px; height:26px; padding:0; border:1px solid #c9c9c9; background:#fff; color:#444; cursor:pointer; border-radius:3px; }
+.cf-icon svg { display:block; }
+.cf-icon:hover { background:#e9e9e9; }
+.cf-icon--del { color:#b40000; border-color:#e0b4b4; }
+
+.cf-builder__empty { color:#888; font-style:italic; padding:8px 2px; }
+
+/* ---- inspector: properties of the selected field ---- */
+.cf-inspector__empty { color:#888; font-style:italic; margin:0; }
+.cf-inspector__head { margin-bottom:14px; }
+.cf-inspector__type { display:inline-block; font-size:11px; text-transform:uppercase; letter-spacing:.05em; background:#5a5a5a; color:#fff; padding:3px 9px; border-radius:3px; }
+.cf-insp-field { margin-bottom:12px; }
+.cf-insp-field > label { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:#777; margin-bottom:4px; }
+.cf-insp-field input[type="text"], .cf-insp-field select, .cf-insp-textarea { box-sizing:border-box; width:100%; }
+.cf-insp-textarea { font-family:monospace; font-size:12px; padding:6px 8px; }
+.cf-insp-field--check > label { display:flex; align-items:center; gap:6px; font-size:13px; text-transform:none; letter-spacing:0; color:#333; }
+.cf-insp-field--check input { width:auto; }
+.cf-insp-group { margin-top:16px; padding-top:12px; border-top:1px solid #ececec; }
+.cf-insp-group__title { font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:#999; margin-bottom:8px; }
+
+/* ---- JSON preview ---- */
+.cf-json-preview { background:#1e1e1e; color:#d4d4d4; padding:12px; border-radius:4px; overflow:auto; max-height:320px; font-size:12px; margin-top:14px; }
+
+/* ---- embed snippet (Embedding tab) ---- */
+.cf-embed { display:block; }
+.cf-embed__code { display:block; width:100%; box-sizing:border-box; background:#f3f3f3; border:1px solid #ddd; border-radius:3px; padding:8px 10px; font-family:monospace; word-break:break-all; margin:0 0 8px; }
+.cf-embed .note { margin:8px 0 0; color:#888; }
+/* Embedding tab: widen the snippet value cell. */
+#customforms_form_tabs_embedding_content .form-list td.value { width:80% !important; }

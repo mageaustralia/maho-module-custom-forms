@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Maho
+ *
+ * @package    MageAustralia_CustomForms
+ * @copyright  Copyright (c) 2026 Mage Australia
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <sections>
+        <customforms translate="label" module="customforms">
+            <label>Custom Forms</label>
+            <tab>general</tab>
+            <sort_order>1100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default><show_in_website>1</show_in_website><show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enabled</label>
+                            <comment>Master switch for form rendering and submissions.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default><show_in_website>1</show_in_website><show_in_store>1</show_in_store>
+                        </enabled>
+                    </fields>
+                </general>
+                <antispam translate="label">
+                    <label>Anti-spam</label>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default><show_in_website>1</show_in_website><show_in_store>1</show_in_store>
+                    <fields>
+                        <captcha translate="label comment">
+                            <label>Captcha</label>
+                            <comment>Require the Maho captcha (altcha) on submissions. A form may opt out in its settings.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default><show_in_website>1</show_in_website><show_in_store>1</show_in_store>
+                        </captcha>
+                        <honeypot translate="label comment">
+                            <label>Honeypot</label>
+                            <comment>Add a hidden field; submissions that fill it are silently dropped.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default><show_in_website>1</show_in_website><show_in_store>1</show_in_store>
+                        </honeypot>
+                        <min_seconds translate="label comment">
+                            <label>Minimum fill time (seconds)</label>
+                            <comment>Reject submissions completed faster than this (time-trap). 0 disables.</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits</validate>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default><show_in_website>1</show_in_website><show_in_store>1</show_in_store>
+                        </min_seconds>
+                        <rate_limit_per_hour translate="label comment">
+                            <label>Rate limit per IP per hour</label>
+                            <comment>Maximum submissions from one IP in an hour. 0 disables.</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits</validate>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default><show_in_website>1</show_in_website><show_in_store>1</show_in_store>
+                        </rate_limit_per_hour>
+                    </fields>
+                </antispam>
+                <api translate="label comment">
+                    <label>Headless API</label>
+                    <comment>Read-only schema endpoint + submission endpoint for headless storefronts / embed widgets (API Platform v2). Off by default; enable only when a headless storefront or embed needs it.</comment>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default><show_in_website>1</show_in_website><show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enable headless API</label>
+                            <comment>When off, GET /api/rest/v2/custom-forms/{code} and its submissions endpoint return 404. The server-rendered form is unaffected.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default><show_in_website>1</show_in_website><show_in_store>1</show_in_store>
+                        </enabled>
+                    </fields>
+                </api>
+            </groups>
+        </customforms>
+    </sections>
+</config>
