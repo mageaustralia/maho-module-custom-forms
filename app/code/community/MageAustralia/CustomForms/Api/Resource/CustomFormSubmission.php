@@ -35,7 +35,7 @@ use MageAustralia\CustomForms\Api\State\Processor\CustomFormSubmissionProcessor;
         new Post(
             uriTemplate: '/custom-forms/{code}/submissions',
             description: 'Submit a form; server re-validates and stores the submission',
-            security: "true",
+            security: 'true',
         ),
     ],
 )]
