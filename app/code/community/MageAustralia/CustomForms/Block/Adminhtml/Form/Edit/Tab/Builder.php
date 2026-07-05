@@ -26,21 +26,25 @@ class MageAustralia_CustomForms_Block_Adminhtml_Form_Edit_Tab_Builder extends Ma
         return parent::_prepareForm();
     }
 
+    #[\Override]
     public function getTabLabel(): string
     {
         return $this->__('Form Builder');
     }
 
+    #[\Override]
     public function getTabTitle(): string
     {
         return $this->__('Form Builder');
     }
 
+    #[\Override]
     public function canShowTab(): bool
     {
         return true;
     }
 
+    #[\Override]
     public function isHidden(): bool
     {
         return false;

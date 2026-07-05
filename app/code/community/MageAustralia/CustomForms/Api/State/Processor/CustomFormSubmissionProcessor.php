@@ -31,9 +31,12 @@ class CustomFormSubmissionProcessor implements ProcessorInterface
     /**
      * @param CustomFormSubmission $data
      */
+    #[\Override]
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): CustomFormSubmission
     {
-        $code = (string) ($uriVariables['code'] ?? $data->code ?? '');
+        // $data->code is typed non-nullable so it can't be the ?? source; only
+        // uriVariables['code'] can be missing (POST without a code in the URL).
+        $code = (string) ($uriVariables['code'] ?? $data->code);
 
         /** @var \MageAustralia_CustomForms_Helper_Data $helper */
         $helper = \Mage::helper('customforms');

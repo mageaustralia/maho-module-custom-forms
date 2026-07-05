@@ -25,6 +25,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class CustomFormProvider implements ProviderInterface
 {
+    #[\Override]
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): CustomForm
     {
         $code = (string) ($uriVariables['code'] ?? '');

@@ -90,7 +90,7 @@ class MageAustralia_CustomForms_Model_Form extends Mage_Core_Model_Abstract
             return true;
         }
         $storeId ??= (int) Mage::app()->getStore()->getId();
-        $allowed = array_map('intval', array_filter(array_map('trim', explode(',', $scope)), 'strlen'));
+        $allowed = array_map('intval', array_filter(array_map('trim', explode(',', $scope)), static fn(string $s): bool => $s !== ''));
         return $allowed === [] || in_array($storeId, $allowed, true);
     }
 }

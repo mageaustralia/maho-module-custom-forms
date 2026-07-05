@@ -126,7 +126,7 @@ class MageAustralia_CustomForms_Adminhtml_Customforms_FormController extends Mag
             $notify = array_values(array_filter(array_map(
                 'trim',
                 explode(',', (string) ($data['notify_emails'] ?? '')),
-            ), 'strlen'));
+            ), static fn(string $s): bool => $s !== ''));
 
             $settings = json_encode([
                 'successMessage' => trim((string) ($data['success_message'] ?? '')),

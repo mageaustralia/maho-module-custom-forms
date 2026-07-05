@@ -46,21 +46,25 @@ class MageAustralia_CustomForms_Block_Adminhtml_Form_Edit_Tab_Settings extends M
         return parent::_prepareForm();
     }
 
+    #[\Override]
     public function getTabLabel(): string
     {
         return $this->__('Settings');
     }
 
+    #[\Override]
     public function getTabTitle(): string
     {
         return $this->__('Settings');
     }
 
+    #[\Override]
     public function canShowTab(): bool
     {
         return true;
     }
 
+    #[\Override]
     public function isHidden(): bool
     {
         return false;
