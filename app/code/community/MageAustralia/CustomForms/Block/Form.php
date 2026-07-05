@@ -134,7 +134,9 @@ class MageAustralia_CustomForms_Block_Form extends Mage_Core_Block_Template
         ) {
             return [];
         }
-        return $all;
+        // Return only the declared shape - $all also carries `code` + `nonce`
+        // (validation metadata) which callers don't need.
+        return array_intersect_key($all, array_flip(['success', 'message', 'errors', 'values']));
     }
 
     /** Convenience for the template (resolved once). */

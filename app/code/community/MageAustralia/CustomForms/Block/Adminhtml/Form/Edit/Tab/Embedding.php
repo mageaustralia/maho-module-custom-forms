@@ -52,21 +52,25 @@ class MageAustralia_CustomForms_Block_Adminhtml_Form_Edit_Tab_Embedding extends 
             . "\n//]]></script>";
     }
 
+    #[\Override]
     public function getTabLabel(): string
     {
         return $this->__('Embedding');
     }
 
+    #[\Override]
     public function getTabTitle(): string
     {
         return $this->__('Embedding');
     }
 
+    #[\Override]
     public function canShowTab(): bool
     {
         return true;
     }
 
+    #[\Override]
     public function isHidden(): bool
     {
         return false;

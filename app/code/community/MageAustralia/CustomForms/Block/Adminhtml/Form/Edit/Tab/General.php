@@ -55,21 +55,25 @@ class MageAustralia_CustomForms_Block_Adminhtml_Form_Edit_Tab_General extends Ma
         return parent::_prepareForm();
     }
 
+    #[\Override]
     public function getTabLabel(): string
     {
         return $this->__('General');
     }
 
+    #[\Override]
     public function getTabTitle(): string
     {
         return $this->__('General');
     }
 
+    #[\Override]
     public function canShowTab(): bool
     {
         return true;
     }
 
+    #[\Override]
     public function isHidden(): bool
     {
         return false;
