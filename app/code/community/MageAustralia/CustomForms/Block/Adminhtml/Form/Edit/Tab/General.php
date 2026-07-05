@@ -10,9 +10,7 @@ declare(strict_types=1);
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-class MageAustralia_CustomForms_Block_Adminhtml_Form_Edit_Tab_General
-    extends Mage_Adminhtml_Block_Widget_Form
-    implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class MageAustralia_CustomForms_Block_Adminhtml_Form_Edit_Tab_General extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
     #[\Override]
     protected function _prepareForm(): self

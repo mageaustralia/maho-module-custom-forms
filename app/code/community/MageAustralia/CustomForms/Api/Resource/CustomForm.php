@@ -30,7 +30,7 @@ use MageAustralia\CustomForms\Api\State\Provider\CustomFormProvider;
         new Get(
             uriTemplate: '/custom-forms/{code}',
             description: 'Get a form schema, captcha config and a fresh render token',
-            security: "true",
+            security: 'true',
         ),
     ],
 )]
