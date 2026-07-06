@@ -19,6 +19,20 @@ submissions with spam protection, email notifications, and a review grid.
 - **CSRF-protected POST endpoint** at `/customforms/form/submit` with IP
   logging
 
+## Screenshots
+
+**Forms grid and schema editing in the admin:**
+
+| Manage forms | Form schema |
+|---|---|
+| ![Forms grid](screenshots/admin-forms-grid.png) | ![Schema admin](screenshots/form-schema-admin.png) |
+
+**Storefront render + submissions review:**
+
+| Rendered form | Submissions |
+|---|---|
+| ![Rendered form](screenshots/storefront-rendered-form.png) | ![Submissions grid](screenshots/admin-submissions-grid.png) |
+
 ## Requirements
 
 - Maho 26.5+ (tested on 26.7)
