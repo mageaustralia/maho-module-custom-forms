@@ -59,6 +59,6 @@ class MageAustralia_CustomForms_Block_Adminhtml_Form_Builder extends Mage_Adminh
 
     public function getFieldTypesJson(): string
     {
-        return json_encode($this->getFieldTypes(), JSON_THROW_ON_ERROR);
+        return Mage::helper('core')->jsonEncode($this->getFieldTypes());
     }
 }

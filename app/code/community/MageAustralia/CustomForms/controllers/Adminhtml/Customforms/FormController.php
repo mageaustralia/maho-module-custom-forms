@@ -116,7 +116,12 @@ class MageAustralia_CustomForms_Adminhtml_Customforms_FormController extends Mag
             if ($schemaJson === '') {
                 $schemaJson = '{"fields":[]}';
             }
-            if (!is_array(json_decode($schemaJson, true))) {
+            try {
+                $decodedSchema = Mage::helper('core')->jsonDecode($schemaJson);
+            } catch (\JsonException | Mage_Core_Exception) {
+                $decodedSchema = null;
+            }
+            if (!is_array($decodedSchema)) {
                 throw new Mage_Core_Exception($this->__('The form layout could not be saved (invalid schema).'));
             }
 
@@ -128,11 +133,11 @@ class MageAustralia_CustomForms_Adminhtml_Customforms_FormController extends Mag
                 explode(',', (string) ($data['notify_emails'] ?? '')),
             ), static fn(string $s): bool => $s !== ''));
 
-            $settings = json_encode([
+            $settings = Mage::helper('core')->jsonEncode([
                 'successMessage' => trim((string) ($data['success_message'] ?? '')),
                 'captcha'        => (int) ($data['captcha'] ?? 1) === 1,
                 'notify'         => $notify,
-            ], JSON_THROW_ON_ERROR);
+            ]);
 
             $model->addData([
                 'code'      => $code,
