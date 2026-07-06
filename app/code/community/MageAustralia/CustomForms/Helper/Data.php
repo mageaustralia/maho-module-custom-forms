@@ -335,7 +335,7 @@ class MageAustralia_CustomForms_Helper_Data extends Mage_Core_Helper_Abstract
         $submission->setFormId((int) $form->getId())
             ->setStoreId($storeId)
             ->setCustomerId(isset($context['customer_id']) ? (int) $context['customer_id'] : null)
-            ->setPayload(json_encode($clean, JSON_THROW_ON_ERROR))
+            ->setPayload(Mage::helper('core')->jsonEncode($clean))
             ->setStatus('new')
             ->setIp($ip !== '' ? $ip : null);
         $submission->save();

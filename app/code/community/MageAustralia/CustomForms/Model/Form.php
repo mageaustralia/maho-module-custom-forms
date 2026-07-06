@@ -58,7 +58,11 @@ class MageAustralia_CustomForms_Model_Form extends Mage_Core_Model_Abstract
         if ($raw === '') {
             return [];
         }
-        $decoded = json_decode($raw, true);
+        try {
+            $decoded = Mage::helper('core')->jsonDecode($raw);
+        } catch (\JsonException | Mage_Core_Exception) {
+            $decoded = null;
+        }
         return is_array($decoded) ? $decoded : [];
     }
 
@@ -73,7 +77,11 @@ class MageAustralia_CustomForms_Model_Form extends Mage_Core_Model_Abstract
         if ($raw === '') {
             return [];
         }
-        $decoded = json_decode($raw, true);
+        try {
+            $decoded = Mage::helper('core')->jsonDecode($raw);
+        } catch (\JsonException | Mage_Core_Exception) {
+            $decoded = null;
+        }
         return is_array($decoded) ? $decoded : [];
     }
 
